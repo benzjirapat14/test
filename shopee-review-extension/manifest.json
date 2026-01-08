@@ -1,0 +1,40 @@
+{
+  "manifest_version": 3,
+  "name": "Shopee Review Auto Reply",
+  "version": "1.0.0",
+  "description": "ช่วยตอบรีวิว Shopee อัตโนมัติด้วย Template ที่กำหนดเอง",
+  "permissions": [
+    "storage",
+    "sidePanel",
+    "activeTab",
+    "scripting"
+  ],
+  "host_permissions": [
+    "https://seller.shopee.co.th/*",
+    "https://*.shopee.co.th/*"
+  ],
+  "background": {
+    "service_worker": "scripts/background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://seller.shopee.co.th/portal/product/review*",
+        "https://seller.shopee.co.th/portal/marketing/review*"
+      ],
+      "js": ["scripts/content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "side_panel": {
+    "default_path": "sidepanel/sidepanel.html"
+  },
+  "action": {
+    "default_title": "Shopee Review Reply"
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  }
+}

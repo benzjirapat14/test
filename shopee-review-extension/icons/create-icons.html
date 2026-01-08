@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Create Extension Icons</title>
+</head>
+<body>
+  <h1>Icon Generator for Shopee Review Extension</h1>
+  <p>กรุณาเปิดไฟล์นี้ในเบราว์เซอร์แล้วคลิกปุ่มด้านล่างเพื่อดาวน์โหลด icons</p>
+
+  <button onclick="createIcons()">สร้างและดาวน์โหลด Icons</button>
+
+  <div id="output"></div>
+
+  <script>
+    function createIcon(size) {
+      const canvas = document.createElement('canvas');
+      canvas.width = size;
+      canvas.height = size;
+      const ctx = canvas.getContext('2d');
+
+      // Background gradient
+      const gradient = ctx.createLinearGradient(0, 0, size, size);
+      gradient.addColorStop(0, '#EE4D2D');
+      gradient.addColorStop(1, '#FF6B3D');
+
+      // Draw background circle
+      ctx.fillStyle = gradient;
+      ctx.beginPath();
+      ctx.arc(size / 2, size / 2, size / 2 - 2, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Draw shopping bag
+      ctx.fillStyle = 'white';
+      const bagWidth = size * 0.4;
+      const bagHeight = size * 0.45;
+      const bagX = (size - bagWidth) / 2;
+      const bagY = size * 0.35;
+
+      ctx.fillRect(bagX, bagY, bagWidth, bagHeight);
+
+      // Draw bag handle
+      ctx.strokeStyle = 'white';
+      ctx.lineWidth = size * 0.04;
+      ctx.beginPath();
+      ctx.arc(size / 2, bagY, bagWidth / 3, Math.PI, 0);
+      ctx.stroke();
+
+      // Draw star
+      ctx.fillStyle = '#FFD700';
+      const starSize = size * 0.15;
+      const starX = size / 2;
+      const starY = size * 0.6;
+      drawStar(ctx, starX, starY, starSize);
+
+      return canvas;
+    }
+
+    function drawStar(ctx, cx, cy, size) {
+      ctx.beginPath();
+      for (let i = 0; i < 5; i++) {
+        const angle = (i * 4 * Math.PI) / 5 - Math.PI / 2;
+        const x = cx + Math.cos(angle) * size;
+        const y = cy + Math.sin(angle) * size;
+        if (i === 0) {
+          ctx.moveTo(x, y);
+        } else {
+          ctx.lineTo(x, y);
+        }
+      }
+      ctx.closePath();
+      ctx.fill();
+    }
+
+    function downloadCanvas(canvas, filename) {
+      const link = document.createElement('a');
+      link.download = filename;
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    }
+
+    function createIcons() {
+      const sizes = [16, 48, 128];
+      const output = document.getElementById('output');
+      output.innerHTML = '<h2>กำลังสร้าง icons...</h2>';
+
+      sizes.forEach(size => {
+        const canvas = createIcon(size);
+        document.body.appendChild(canvas);
+
+        // Download
+        setTimeout(() => {
+          downloadCanvas(canvas, `icon${size}.png`);
+        }, 100 * sizes.indexOf(size));
+
+        output.innerHTML += `<p>✓ สร้าง icon${size}.png เรียบร้อย</p>`;
+      });
+
+      output.innerHTML += '<h3 style="color: green;">เสร็จสิ้น! กรุณานำไฟล์ที่ดาวน์โหลดไปใส่ในโฟลเดอร์ icons/</h3>';
+    }
+  </script>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 800px;
+      margin: 50px auto;
+      padding: 20px;
+    }
+
+    button {
+      background: #EE4D2D;
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      margin: 20px 0;
+    }
+
+    button:hover {
+      background: #d73211;
+    }
+
+    canvas {
+      margin: 10px;
+      border: 1px solid #ddd;
+    }
+
+    #output {
+      margin-top: 20px;
+      padding: 20px;
+      background: #f5f5f5;
+      border-radius: 8px;
+    }
+  </style>
+</body>
+</html>

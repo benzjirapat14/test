@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shopee Review Reply</title>
+  <link rel="stylesheet" href="sidepanel.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <header class="header">
+      <h1>🛍️ Shopee Review Reply</h1>
+      <p class="subtitle">ตอบรีวิวอัตโนมัติด้วย Template</p>
+    </header>
+
+    <!-- Stats Section -->
+    <div class="stats-section">
+      <div class="stat-card">
+        <div class="stat-label">รีวิวที่ค้าง</div>
+        <div class="stat-value" id="pendingCount">-</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">ตอบแล้ว</div>
+        <div class="stat-value success" id="repliedCount">0</div>
+      </div>
+    </div>
+
+    <!-- Current Review Section -->
+    <div class="current-review-section">
+      <h2>รีวิวปัจจุบัน</h2>
+      <div id="currentReview" class="review-card empty">
+        <p class="empty-message">ยังไม่มีรีวิวที่โหลด กรุณาคลิก "โหลดรีวิว"</p>
+      </div>
+    </div>
+
+    <!-- Template Selection -->
+    <div class="template-section">
+      <h2>เลือก Template</h2>
+      <select id="templateSelect" class="template-select">
+        <option value="">-- เลือก Template --</option>
+      </select>
+      <button id="manageTemplatesBtn" class="btn btn-secondary">จัดการ Template</button>
+    </div>
+
+    <!-- Reply Input -->
+    <div class="reply-section">
+      <h2>ข้อความตอบกลับ</h2>
+      <textarea
+        id="replyText"
+        class="reply-textarea"
+        placeholder="พิมพ์ข้อความตอบกลับที่นี่...&#10;&#10;- สามารถแก้ไขจาก Template ได้&#10;- กด Enter เพื่อขึ้นบรรทัดใหม่&#10;- กดปุ่ม 'ส่งคำตอบ' เมื่อพร้อม"
+        rows="6"
+      ></textarea>
+      <div class="char-count">
+        <span id="charCount">0</span> / 500 ตัวอักษร
+      </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="action-buttons">
+      <button id="loadReviewsBtn" class="btn btn-primary">
+        📥 โหลดรีวิว
+      </button>
+      <button id="sendReplyBtn" class="btn btn-success" disabled>
+        ✉️ ส่งคำตอบ
+      </button>
+      <button id="skipBtn" class="btn btn-secondary" disabled>
+        ⏭️ ข้าม
+      </button>
+    </div>
+
+    <!-- Status Message -->
+    <div id="statusMessage" class="status-message"></div>
+  </div>
+
+  <!-- Template Manager Modal -->
+  <div id="templateModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>จัดการ Template</h2>
+        <span class="close">&times;</span>
+      </div>
+      <div class="modal-body">
+        <!-- Template List -->
+        <div class="template-list">
+          <h3>Template ที่มีอยู่</h3>
+          <div id="templateList"></div>
+        </div>
+
+        <!-- Add New Template -->
+        <div class="add-template">
+          <h3>เพิ่ม Template ใหม่</h3>
+          <input
+            type="text"
+            id="newTemplateName"
+            class="input-field"
+            placeholder="ชื่อ Template (เช่น ขอบคุณลูกค้า)"
+          >
+          <textarea
+            id="newTemplateText"
+            class="input-field"
+            placeholder="ข้อความ Template"
+            rows="4"
+          ></textarea>
+          <button id="addTemplateBtn" class="btn btn-primary">+ เพิ่ม Template</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="sidepanel.js"></script>
+</body>
+</html>
